@@ -36,7 +36,7 @@ def main(args):
             input_graph_def = sess.graph.as_graph_def()
 
             # Freeze the graph def
-            output_graph_def = freeze_graph_def(sess, input_graph_def, 'embeddings')
+            output_graph_def = freeze_graph_def(sess, input_graph_def, args.output_node_name)
 
         # Serialize and dump the output graph to the filesystem
         with tf.gfile.GFile(args.output_file, 'wb') as f:
@@ -93,6 +93,8 @@ def parse_arguments(argv):
         help='Directory containing the metagraph (.meta) file and the checkpoint (ckpt) file containing model parameters')
     parser.add_argument('output_file', type=str,
         help='Filename for the exported graphdef protobuf (.pb)')
+    parser.add_argument('output_node_name', type=str,
+        help='the output_node_name of the freezed model')
     return parser.parse_args(argv)
 
 if __name__ == '__main__':
