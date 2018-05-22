@@ -78,7 +78,7 @@ def freeze_graph_def(sess, input_graph_def, output_node_names):
     #         print(idx)
     input_graph_def.node[25768].input[0] = 'InceptionResnetV1/Logits/Flatten/flatten/Reshape' #接25755的输出
     nodes = input_graph_def.node[:25756] + input_graph_def.node[25768:]
-    # Replace all the variables in the graph with constants of the same values
+    # make a new graph
     output_graph = graph_pb2.GraphDef()
     output_graph.node.extend(nodes)
     output_graph_def = graph_util.convert_variables_to_constants(
